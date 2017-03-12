@@ -18,7 +18,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.control.Button; 
+=======
+import javafx.scene.control.Button;
+>>>>>>> origin/interface
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -53,7 +57,10 @@ public class Main extends Application {
      * @param primaryStage Окно для отрисовки первоначального меню
      */
     public void start(Stage primaryStage) {
+<<<<<<< HEAD
         math.start();
+=======
+>>>>>>> origin/interface
         try{                                                                    //открытие файлов
             fos_step = new FileOutputStream("savedSteps_temp.txt");
             outStream_step = new ObjectOutputStream(fos_step);;
@@ -79,6 +86,7 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 difficulty=true;
                 newGame(primaryStage);
+                difficulty=true;
             }
         });
         Button btnHardGame = new Button();                                      //создание кнопки сложного уровня сложности
@@ -94,8 +102,11 @@ public class Main extends Application {
         });
         
         Button btnExit = new Button();                                          //создание кнопки выхода
+<<<<<<< HEAD
         btnExit.setLayoutX(400);
         btnExit.setLayoutY(400);
+=======
+>>>>>>> origin/interface
         btnExit.setText("Exit");
         btnExit.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -106,8 +117,11 @@ public class Main extends Application {
         });
         
         Group root = new Group();
+<<<<<<< HEAD
         root.getChildren().add(btnExit);                                        //добавление кнопок выхода и новой игры
         root.getChildren().add(btnNewGame);
+=======
+>>>>>>> origin/interface
         btnNewGame.setOnAction(new EventHandler<ActionEvent>() {                //добавить кнопки уровней сложности по нажатию на кнопку "новая игра"
             
             @Override
@@ -121,8 +135,13 @@ public class Main extends Application {
                 }                
             }
         });
+<<<<<<< HEAD
         
         
+=======
+        root.getChildren().add(btnExit);                                        //добавление остальных кнопок
+        root.getChildren().add(btnNewGame);
+>>>>>>> origin/interface
         Scene scene = new Scene(root, 500, 500);                                //создание сцены
         primaryStage.setTitle("2048");
         primaryStage.setScene(scene);
@@ -181,7 +200,11 @@ public class Main extends Application {
                 {
                     try{
                         int n = Integer.parseInt(stepToLoad.getText());
+<<<<<<< HEAD
                         if(n<inStream_step.available()/4 && n>0)
+=======
+                        if(n<inStream_step.available()/4&&n>0)
+>>>>>>> origin/interface
                             for (int i=0;i<n;i++)
                             {                     
                                 int t=inStream_step.readInt();
@@ -203,6 +226,7 @@ public class Main extends Application {
                     drawGridPane();
                     if (lost||won) endGame(stage);
                 }        
+<<<<<<< HEAD
             }
         });
         
@@ -216,6 +240,20 @@ public class Main extends Application {
                 exit();
             }
         });
+=======
+            }
+        });
+        Button btnExit = new Button();                                          //создание кнопки выхода
+        btnExit.setText("Exit");
+        btnExit.setLayoutX(400);
+        btnExit.setLayoutY(450);
+        btnExit.setOnAction(new EventHandler<ActionEvent>() {           
+            @Override
+            public void handle(ActionEvent event) {
+                exit();
+            }
+        });
+>>>>>>> origin/interface
         
         drawGridPane();                                                 
         
@@ -279,7 +317,11 @@ public class Main extends Application {
             for(int j=0;j<4;j++)
             {        
                 gridLabels[i][j] = new Label("    "+toDraw[i][j]);
+<<<<<<< HEAD
                 gridLabels[i][j].setFont(new Font("Arial",20));
+=======
+                gridLabels[i][j].setFont(new Font("Arial",26));
+>>>>>>> origin/interface
                 gridLabels[i][j].setBackground(new Background(new BackgroundFill(setCellColor(toDraw[i][j]),null,null)));
                 gameTable.setConstraints(gridLabels[i][j], i, j);
                 gameTable.getChildren().addAll(gridLabels[i][j]);

@@ -13,11 +13,14 @@ import java.util.Random;
  */
 public class NewThread extends Thread{
     int[][] gameArray = new int[4][4];
+<<<<<<< HEAD
     
     @Override
     public void start() {
   
     }
+=======
+>>>>>>> origin/interface
 
     /**
      * Инициализация таблицы с числами
@@ -45,10 +48,19 @@ public class NewThread extends Thread{
     {
         int x,y;
         Random rnd = new Random();
+<<<<<<< HEAD
         for (int i=0;i<1;i++)                                                   //добавить одну двойку
         {
             x=rnd.nextInt(4);
             y=rnd.nextInt(4);
+=======
+        for (int i=0;i<1;i++)                                                   //добавить 1 2
+        {
+            x=rnd.nextInt()%4;
+            if (x<0) x=(-1)*x;
+            y=rnd.nextInt()%4;
+            if (y<0) y=(-1)*y;
+>>>>>>> origin/interface
             if (gameArray[x][y]==0)
                 gameArray[x][y]=2;
             else
@@ -83,7 +95,11 @@ public class NewThread extends Thread{
                         }
                         else
                         {
+<<<<<<< HEAD
                             if (gameArray[i][jp+1]==0)
+=======
+                           if (gameArray[i][jp+1]==0)
+>>>>>>> origin/interface
                             {
                                 gameArray[i][jp+1]=gameArray[i][j];
                                 gameArray[i][j]=0;
