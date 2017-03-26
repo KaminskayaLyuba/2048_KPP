@@ -13,16 +13,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-<<<<<<< HEAD
 import javafx.scene.control.Button; 
-=======
-import javafx.scene.control.Button;
->>>>>>> origin/interface
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -31,6 +29,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 enum Direction {UP,DOWN,LEFT,RIGHT}
 
 /**
@@ -57,18 +58,14 @@ public class Main extends Application {
      * @param primaryStage Окно для отрисовки первоначального меню
      */
     public void start(Stage primaryStage) {
-<<<<<<< HEAD
+        primaryStage.setResizable(false);
         math.start();
-=======
->>>>>>> origin/interface
         try{                                                                    //открытие файлов
             fos_step = new FileOutputStream("savedSteps_temp.txt");
             outStream_step = new ObjectOutputStream(fos_step);;
             fis_step = new FileInputStream("savedSteps.txt");
             inStream_step = new ObjectInputStream(fis_step);
-        }
-        catch (Exception e)
-        {            
+        } catch (Exception e) {            
             e.printStackTrace();
         }
         
@@ -76,6 +73,7 @@ public class Main extends Application {
         btnNewGame.setText("New Game");
         btnNewGame.setLayoutX(100);
         btnNewGame.setLayoutY(100);
+        
         Button btnEasyGame = new Button();                                      //создание кнопки легкого уровня сложности
         btnEasyGame.setLayoutX(200);
         btnEasyGame.setLayoutY(200);
@@ -86,7 +84,6 @@ public class Main extends Application {
             public void handle(ActionEvent event) {
                 difficulty=true;
                 newGame(primaryStage);
-                difficulty=true;
             }
         });
         Button btnHardGame = new Button();                                      //создание кнопки сложного уровня сложности
@@ -102,11 +99,8 @@ public class Main extends Application {
         });
         
         Button btnExit = new Button();                                          //создание кнопки выхода
-<<<<<<< HEAD
         btnExit.setLayoutX(400);
         btnExit.setLayoutY(400);
-=======
->>>>>>> origin/interface
         btnExit.setText("Exit");
         btnExit.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -117,17 +111,13 @@ public class Main extends Application {
         });
         
         Group root = new Group();
-<<<<<<< HEAD
         root.getChildren().add(btnExit);                                        //добавление кнопок выхода и новой игры
         root.getChildren().add(btnNewGame);
-=======
->>>>>>> origin/interface
         btnNewGame.setOnAction(new EventHandler<ActionEvent>() {                //добавить кнопки уровней сложности по нажатию на кнопку "новая игра"
             
             @Override
             public void handle(ActionEvent event) {
-                if(!levelButtonsExist)
-                {
+                if(!levelButtonsExist) {
                     root.getChildren().add(btnHardGame);
                     root.getChildren().add(btnEasyGame);
                     primaryStage.show();
@@ -135,13 +125,8 @@ public class Main extends Application {
                 }                
             }
         });
-<<<<<<< HEAD
         
         
-=======
-        root.getChildren().add(btnExit);                                        //добавление остальных кнопок
-        root.getChildren().add(btnNewGame);
->>>>>>> origin/interface
         Scene scene = new Scene(root, 500, 500);                                //создание сцены
         primaryStage.setTitle("2048");
         primaryStage.setScene(scene);
@@ -152,8 +137,7 @@ public class Main extends Application {
      * Запуск новой игры
      * @param stage Окно для отрисовки игры
      */
-    public void newGame(Stage stage)
-    {
+    public void newGame(Stage stage) {
         
         gameTable.setHgap(10);                                                  //настройка игровой таблицы
         gameTable.setVgap(10);
@@ -161,13 +145,11 @@ public class Main extends Application {
         gameTable.setLayoutY(20);
         gameTable.setBorder(new Border(new BorderStroke(null,BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderStroke.THICK)));
         
-        for(int i=0;i<4;i++)
-        {
+        for(int i=0;i<4;i++) {
             gameTable.getColumnConstraints().add(new ColumnConstraints(75));
         }
         
-        for(int i=0;i<4;i++)
-        {
+        for(int i=0;i<4;i++) {
             gameTable.getRowConstraints().add(new RowConstraints(75));
         }        
         Button btnBotToggle = new Button();                                     //создание кнопки включения бота
@@ -179,34 +161,29 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 Random rnd=new Random();
-                for (int i=0;i<10;i++)                                          //бот делает 10 случайных ходов
-                {
+                for (int i=0;i<10;i++) {
                     direction = Direction.values()[rnd.nextInt(4)];
                     buttonController();
-                    drawGridPane();
+                    drawGridPane();               
                     if (lost||won) endGame(stage);
                 }
-            }
+            }                                           
         });
+        
         
         TextField stepToLoad = new TextField();                                 //создание текстового поля для ввода номера хода который надо загрузить
         stepToLoad.setLayoutX(400);
         stepToLoad.setLayoutY(50);
         stepToLoad.setMaxWidth(80);        
         stepToLoad.setOnKeyPressed(new EventHandler<KeyEvent>() {               //по нажатию кнопки ентер в этом поле идет загрузка
+            
             @Override
         public void handle(KeyEvent event) {
-            if(event.getCode()==KeyCode.ENTER)
-                {
+            if(event.getCode()==KeyCode.ENTER) {
                     try{
                         int n = Integer.parseInt(stepToLoad.getText());
-<<<<<<< HEAD
                         if(n<inStream_step.available()/4 && n>0)
-=======
-                        if(n<inStream_step.available()/4&&n>0)
->>>>>>> origin/interface
-                            for (int i=0;i<n;i++)
-                            {                     
+                            for (int i=0;i<n;i++) {                     
                                 int t=inStream_step.readInt();
                                 direction = Direction.values()[t];
                                 buttonController();
@@ -214,9 +191,7 @@ public class Main extends Application {
                             }
                         stepToLoad.clear();
                         drawGridPane();
-                    }
-                    catch(Exception e)
-                    {
+                    } catch(Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -226,7 +201,6 @@ public class Main extends Application {
                     drawGridPane();
                     if (lost||won) endGame(stage);
                 }        
-<<<<<<< HEAD
             }
         });
         
@@ -240,23 +214,9 @@ public class Main extends Application {
                 exit();
             }
         });
-=======
-            }
-        });
-        Button btnExit = new Button();                                          //создание кнопки выхода
-        btnExit.setText("Exit");
-        btnExit.setLayoutX(400);
-        btnExit.setLayoutY(450);
-        btnExit.setOnAction(new EventHandler<ActionEvent>() {           
-            @Override
-            public void handle(ActionEvent event) {
-                exit();
-            }
-        });
->>>>>>> origin/interface
         
         drawGridPane();                                                 
-        
+
         Group root = new Group();
         root.getChildren().addAll(gameTable,btnBotToggle,stepToLoad,btnExit);   //добавление всех элементов на экран
         Scene scene = new Scene(root, 500, 500);       
@@ -267,7 +227,7 @@ public class Main extends Application {
                     direction = direction.valueOf(event.getCode().name());
                     buttonController();        
                     drawGridPane();
-                    if (lost||won) endGame(stage);
+                    if (lost||won) endGame(stage);                              
                 }                               
             }
         });
@@ -276,13 +236,12 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     /**
      * Создание окна проигрыша или выигрыша
      * @param stage Окно для отрисовки текста
      */
-    public void endGame(Stage stage)
-    {
+    public void endGame(Stage stage) {
         Button btnExit = new Button();                                          //создание кнопки выхода
         btnExit.setText("Exit");
         btnExit.setLayoutX(240);
@@ -308,23 +267,14 @@ public class Main extends Application {
     /**
      * Перерисовка таблицы с числами
      */
-    public void drawGridPane()
-    {
+    public void drawGridPane() {
         int[][] toDraw = math.getGameArray();
-        Label[][] gridLabels=new Label[4][4];    
+        ImageView[][] gridLabels=new ImageView[4][4];  
         gameTable.getChildren().clear();
         for(int i=0;i<4;i++)
-            for(int j=0;j<4;j++)
-            {        
-                gridLabels[i][j] = new Label("    "+toDraw[i][j]);
-<<<<<<< HEAD
-                gridLabels[i][j].setFont(new Font("Arial",20));
-=======
-                gridLabels[i][j].setFont(new Font("Arial",26));
->>>>>>> origin/interface
-                gridLabels[i][j].setBackground(new Background(new BackgroundFill(setCellColor(toDraw[i][j]),null,null)));
-                gameTable.setConstraints(gridLabels[i][j], i, j);
-                gameTable.getChildren().addAll(gridLabels[i][j]);
+            for(int j=0;j<4;j++) {        
+                gridLabels[i][j] = new ImageView(new Image(setCellColor(toDraw[i][j])));
+                gameTable.add(gridLabels[i][j], i, j);
             }
     }
     
@@ -333,23 +283,8 @@ public class Main extends Application {
      * @param colorNumber Число для установки цвета
      * @return Цвет ячейки
      */
-    public Color setCellColor(int colorNumber)                      
-    {
-        switch (colorNumber)
-                {
-                    case 2: return Color.GRAY;
-                    case 4: return Color.BURLYWOOD;
-                    case 8: return Color.STEELBLUE;
-                    case 16: return Color.DARKKHAKI;
-                    case 32: return Color.YELLOWGREEN;
-                    case 64: return Color.CHOCOLATE;
-                    case 128: return Color.TURQUOISE;
-                    case 256: return Color.DARKORANGE;
-                    case 512: return Color.SKYBLUE;
-                    case 1024: return Color.POWDERBLUE;
-                    case 2048: return Color.BLACK;
-                    default: return Color.WHITE;
-                }
+    public String setCellColor(int colorNumber) {
+        return "file:"+Integer.toString(colorNumber)+".bmp";
     }
     
     /**
@@ -358,13 +293,12 @@ public class Main extends Application {
     public void buttonController()
     {
         Random rnd = new Random();
-        if (!difficulty&&rnd.nextInt(100)<30) direction = Direction.values()[rnd.nextInt(4)];
-        
-        try{
+        if (!difficulty&&rnd.nextInt(100)<30) 
+            direction = Direction.values()[rnd.nextInt(4)];
+      
+        try {
         outStream_step.writeInt(direction.ordinal());
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         
@@ -389,7 +323,9 @@ public class Main extends Application {
         int[][] numbers = math.getGameArray();
         for(i=0;i<4;i++)
             for(j=0;j<4;j++)
-                if (numbers[i][j]==0){ lost = false; return;}
+                if (numbers[i][j]==0){ 
+                    lost = false; return;
+                }
         lost = true;
     }
     
@@ -409,37 +345,30 @@ public class Main extends Application {
     /**
      * Безопасный выход
      */
-    public void exit()
-    {
-        try
-        {
+    public void exit() {
+        try {
             outStream_step.close();
             inStream_step.close();
             fis_step.close();
             fos_step.close();
-        }
-        catch(IOException e)
-        {
+        } catch(IOException e) {
            e.printStackTrace();
         }
-        try
-        {
+        try {
             File source = new File("savedSteps_temp.txt");
             File dest = new File("savedSteps.txt");
             dest.delete();
             Files.copy(source.toPath(),dest.toPath());
-        }
-        catch(IOException e)
-        {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         System.exit(0);
     }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         launch(args);                     
     }
     
